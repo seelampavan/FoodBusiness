@@ -1,8 +1,8 @@
-doctype html
 include index
+doctype html
 html(lang='en')
   head
-    title text over image css
+    title Text over Image CSS
     link(rel='stylesheet', href='css/style.css')
   body
     .image-container
@@ -11,3 +11,25 @@ html(lang='en')
         hr.line-between
         .overlay-text.secondary From Our Casa To Yours
       img(src='css/dashboard.jpg', alt='Silver Spoon Discussion')
+    h1.title Today Specials
+    .menu-container
+      each item in items
+        .menu-item
+          img(src=`css/em-ginger-fried-img.png`, alt=item.name)
+          h2= item.name
+          p Veg: #{item.veg ? 'Yes' : 'No'}
+          a(href='#') View Details
+    h1.title Veg Items
+    .menu-container
+      each item in items1
+        .menu-item
+          img(src=`css/em-ginger-fried-img.png`, alt=item.name)
+          h2= item.name
+          a(href='#') View Details
+    h1.title Non-Veg Items
+    .menu-container
+      each item in items2
+        .menu-item
+          img(src=`css/em-ginger-fried-img.png`, alt=item.name)
+          h2= item.name
+          a(href='#') View Details
