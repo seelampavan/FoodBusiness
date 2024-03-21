@@ -17,9 +17,7 @@ const db = require('./services/db');
 // app.get('/', function (req, res) {
 //     res.send("hello world");
 // });
-app.get('/home', function (req, res) {
-    res.render('dashboard');
-});
+
 
 // app.get('/', async (req, res) => {
 //     try {
