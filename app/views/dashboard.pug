@@ -2,8 +2,22 @@ include index
 doctype html
 html(lang='en')
   head
-    title Text over Image CSS
+    title Silver Spoon
     link(rel='stylesheet', href='css/style.css')
+    script.
+      function searchItems() {
+        var searchInput = document.getElementById('searchInput').value.toLowerCase();
+        var menuItems = document.querySelectorAll('.menu-item');
+        
+        menuItems.forEach(function(item) {
+          var itemName = item.querySelector('h2').textContent.toLowerCase();
+          if (itemName.includes(searchInput)) {
+            item.style.display = 'block';
+          } else {
+            item.style.display = 'none';
+          }
+        });
+      }
   body
     .image-container
       .overlay-text-wrapper
@@ -11,25 +25,33 @@ html(lang='en')
         hr.line-between
         .overlay-text.secondary From Our Casa To Yours
       img(src='css/dashboard.jpg', alt='Silver Spoon Discussion')
+
+    // Search box
+    div.search-box
+      input#searchInput(type='text', placeholder='Search', name='search')
+      button(type='button', onclick='searchItems()') Search
+
     h1.title Today Specials
     .menu-container
       each item in items
-        .menu-item
-          img(src=`css/em-ginger-fried-img.png`, alt=item.name)
+        .menu-item(id=`${item.name.toLowerCase().replace(/\s+/g, '-')}`)
+          img(src=`css/${item.item_img}`, alt=item.name)
           h2= item.name
           p Veg: #{item.veg ? 'Yes' : 'No'}
           a(href='#') View Details
+          
     h1.title Veg Items
     .menu-container
       each item in items1
-        .menu-item
-          img(src=`css/em-ginger-fried-img.png`, alt=item.name)
+        .menu-item(id=`${item.name.toLowerCase().replace(/\s+/g, '-')}`)
+          img(src=`css/${item.item_img}`, alt=item.name)
           h2= item.name
           a(href='#') View Details
+
     h1.title Non-Veg Items
     .menu-container
       each item in items2
-        .menu-item
-          img(src=`css/em-ginger-fried-img.png`, alt=item.name)
+        .menu-item(id=`${item.name.toLowerCase().replace(/\s+/g, '-')}`)
+          img(src=`css/${item.item_img}`, alt=item.name)
           h2= item.name
           a(href='#') View Details
