@@ -37,7 +37,7 @@ html(lang='en')
         .menu-item(id=`${item.name.toLowerCase().replace(/\s+/g, '-')}`)
           img(src=`css/${item.item_img}`, alt=item.name)
           h2= item.name
-          p Veg: #{item.veg ? 'Yes' : 'No'}
+          p Veg: #{item.veg}
           a(href='#') View Details
           
     h1.title Veg Items
