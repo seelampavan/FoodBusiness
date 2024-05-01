@@ -44,13 +44,19 @@ const sessionMiddleware = session({
 app.use(sessionMiddleware);
 
 app.get("/", function (req, res) {
+    if (req.session.uid) {
+        const buttons = true;
+    }
+    else{
+        const buttons = false;
+    }
     const sql = 'SELECT * FROM menu_item where category = "today_special" LIMIT 5';
     const sql1 = 'SELECT * FROM menu_item WHERE veg = "Yes" LIMIT 5';
     const sql2 = 'SELECT * FROM menu_item WHERE veg = "No" LIMIT 5';
 
     Promise.all([db.query(sql), db.query(sql1), db.query(sql2)])
         .then(([result, result1, result2]) => {
-            res.render('dashboard', { items: result, items1: result1, items2: result2 });
+            res.render('dashboard', { items: result, items1: result1, items2: result2,buttons: buttons });
         })
         .catch(error => {
             console.error(error);
