@@ -1,6 +1,7 @@
 // Import express.js
 const express = require("express");
 const { User } = require("./models/user");
+const { Menu } = require("./models/menu");
 // Create express app
 var app = express();
 
@@ -79,6 +80,17 @@ app.get("/admin_dashboard", function (req, res) {
         });
 });
 
+app.get("/item_details/:itemId", async function (req, res) {
+    const itemId = req.params.itemId;
+    try {
+        const menu = await Menu.getMenuItemById(itemId);
+        res.render('admin-item-details', { data: menu });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Internal Server Error', currentPage: 'home' });
+    }
+});
+
 // app.get('/register', function (req, res) {
 //     res.render('register');
 // });
@@ -111,6 +123,7 @@ app.post('/authenticate', async function (req, res) {
         res.status(500).send('Internal Server Error');
     }
 });
+
 
 
 // app.post('/set-password', async function (req, res) {

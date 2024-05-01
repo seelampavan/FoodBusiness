@@ -1,0 +1,66 @@
+doctype html
+html
+  head
+    title Silver Spoon
+    meta(charset='utf-8')
+    meta(name='viewport' content='width=device-width, initial-scale=1.0')
+    link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Lato&display=swap')
+    link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css')
+    link(rel='stylesheet', href='../css/style.css')
+
+  body
+    nav
+      div(class='logo')
+        img.logo(src='../css/logo.png', alt='Logo')
+        span.silver-spoon-text Silver Spoon
+      div(class='hamburger')
+        i(class='fa fa-bars')
+      ul
+        li
+          a(href='/admin_dashboard') HOME
+        li
+          a(href='/aboutus') Create Menu
+
+    script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js')
+    script(src='js/header.js')
+
+    block content
+      .card-container
+        .card(style='font-family: Arial, sans-serif; margin-top: 20px; padding: 20px; background-color: #86c9d5; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); border-radius: 10px;')
+          h1(style='color: #333;') Item Details
+
+          if data.length > 0
+            ol(style='list-style-type: none; padding: 0;')
+              each item in data
+                li(style='border: 1px solid #ccc; border-radius: 5px; padding: 10px; margin-bottom: 10px; color: black; text-align: left;')
+                  span(style='font-weight: bold;') S No: 
+                  span #{item.id}
+                li(style='border: 1px solid #ccc; border-radius: 5px; padding: 10px; margin-bottom: 10px; color: black; text-align: left;')
+                  span(style='font-weight: bold;') Name: 
+                  span #{item.name}
+                li(style='border: 1px solid #ccc; border-radius: 5px; padding: 10px; margin-bottom: 10px; color: black; text-align: left;')
+                  span(style='font-weight: bold;') Veg: 
+                  span #{item.veg}
+                li(style='border: 1px solid #ccc; border-radius: 5px; padding: 10px; margin-bottom: 10px; color: black; text-align: left;')
+                  span(style='font-weight: bold;') Ingredients: 
+                  span #{item.ingredients}
+                li(style='border: 1px solid #ccc; border-radius: 5px; padding: 10px; margin-bottom: 10px; color: black; text-align: left;')
+                  span(style='font-weight: bold;') Benefits: 
+                  span #{item.benefits}
+                li(style='border: 1px solid #ccc; border-radius: 5px; padding: 10px; margin-bottom: 10px; color: black; text-align: left;')
+                  span(style='font-weight: bold;') Calories: 
+                  span #{item.calories}
+                li(style='border: 1px solid #ccc; border-radius: 5px; padding: 10px; margin-bottom: 10px; color: black; text-align: left;')
+                  span(style='font-weight: bold;') Description: 
+                  span #{item.description}
+                li(style='border: 1px solid #ccc; border-radius: 5px; padding: 10px; margin-bottom: 10px; color: black; text-align: left;')
+                  span(style='font-weight: bold;') Item Image: 
+                  span #{item.item_img}
+                li(style='border: 1px solid #ccc; border-radius: 5px; padding: 10px; margin-bottom: 10px; color: black; text-align: left;')
+                  span(style='font-weight: bold;') Created Date: 
+                  span #{item.created_date}
+                li(style='border: 1px solid #ccc; border-radius: 5px; padding: 10px; margin-bottom: 10px; color: black; text-align: left;')
+                  span(style='font-weight: bold;') Modified Date: 
+                  span #{item.modified_date}
+          else
+            p(style='font-weight: bold; color: red; text-align: center;') No results found for the given ID.
