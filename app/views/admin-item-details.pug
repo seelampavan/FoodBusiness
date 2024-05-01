@@ -28,7 +28,6 @@ html
       .card-container
         .card(style='font-family: Arial, sans-serif; margin-top: 20px; padding: 20px; background-color: #86c9d5; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); border-radius: 10px;')
           h1(style='color: #333;') Item Details
-          button(style='margin-top: 10px;', onclick='redirectToUpdatePage()') Update Item
 
           if data.length > 0
             ol(style='list-style-type: none; padding: 0;')
@@ -69,7 +68,3 @@ html
           else
             p(style='font-weight: bold; color: red; text-align: center;') No results found for the given ID.
 
-    script.
-      function redirectToUpdatePage() {
-        window.location.href = '/update_item/#{data[0].id}';
-      }
