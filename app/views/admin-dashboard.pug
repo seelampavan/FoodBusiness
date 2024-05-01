@@ -1,0 +1,86 @@
+doctype html
+html
+  head
+    title Silver Spoon
+    meta(charset='utf-8')
+    meta(name='viewport' content='width=device-width, initial-scale=1.0')
+    link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Lato&display=swap')
+    link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css')
+    link(rel='stylesheet', href='css/style.css')
+
+  body
+    nav
+      div(class='logo')
+        img.logo(src='css/logo.png', alt='Logo')
+        span.silver-spoon-text Silver Spoon
+      div(class='hamburger')
+        i(class='fa fa-bars')
+      ul
+        li
+          a(href='/') HOME
+        li
+          a(href='/aboutus') Create Menu
+
+    script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js')
+    script(src='js/header.js')
+
+  block content
+    .search-container
+      input(type='text', id='searchInput', placeholder='Search by Name...')
+      label(for='vegCheckbox') Vegetarian
+      input(type='checkbox', id='vegCheckbox', onchange='filterTable()')
+      button(onclick='filterTable()')
+        i(class='fa fa-search')
+
+    table#dataTable
+      thead
+        tr
+          th S No
+          th Name
+          th Veg
+          th Ingredients
+          th Benefits
+          th Calories
+          th Description
+          th Item Image
+          th Created Date
+          th Modified Date
+      tbody
+        each item in data
+          tr(onclick=`openTemplate('${item.id}')`)
+            td= item.id
+            td= item.name
+            td= item.veg
+            td= item.ingredients
+            td= item.benefits
+            td= item.calories
+            td= item.description
+            td= item.item_img
+            td= item.created_date
+            td= item.modified_date
+
+    script.
+      function filterTable() {
+        var input = document.getElementById('searchInput');
+        var searchTerm = input.value.toLowerCase();
+        var vegCheckbox = document.getElementById('vegCheckbox');
+        var table = document.getElementById('dataTable');
+        var rows = table.getElementsByTagName('tr');
+
+        for (var i = 1; i < rows.length; i++) {
+          var currentVeg = rows[i].getElementsByTagName('td')[2].innerText.toLowerCase();
+          var currentName = rows[i].getElementsByTagName('td')[1].innerText.toLowerCase();
+          var vegMatch = !vegCheckbox.checked || currentVeg.includes('yes');
+          var searchMatch = currentName.includes(searchTerm);
+
+          if (vegMatch && searchMatch) {
+            rows[i].style.display = '';
+          } else {
+            rows[i].style.display = 'none';
+          }
+        }
+      }
+
+      function openTemplate(sNo) {
+        window.location.href = `/menu_details/${sNo}`;
+      }

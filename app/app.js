@@ -44,19 +44,13 @@ const sessionMiddleware = session({
 app.use(sessionMiddleware);
 
 app.get("/", function (req, res) {
-    if (req.session.uid) {
-        const buttons = true;
-    }
-    else{
-        const buttons = false;
-    }
     const sql = 'SELECT * FROM menu_item where category = "today_special" LIMIT 5';
     const sql1 = 'SELECT * FROM menu_item WHERE veg = "Yes" LIMIT 5';
     const sql2 = 'SELECT * FROM menu_item WHERE veg = "No" LIMIT 5';
 
     Promise.all([db.query(sql), db.query(sql1), db.query(sql2)])
         .then(([result, result1, result2]) => {
-            res.render('dashboard', { items: result, items1: result1, items2: result2,buttons: buttons });
+            res.render('dashboard', { items: result, items1: result1, items2: result2 });
         })
         .catch(error => {
             console.error(error);
@@ -65,8 +59,24 @@ app.get("/", function (req, res) {
 });
 
 
+
 app.get('/admin_login', function (req, res) {
     res.render('admin-login');
+});
+
+
+
+app.get("/admin_dashboard", function (req, res) {
+    const sql = 'SELECT * FROM menu_item';
+
+    Promise.all([db.query(sql)])
+        .then(([result]) => {
+            res.render('admin-dashboard', {data: result});
+        })
+        .catch(error => {
+            console.error(error);
+            res.status(500).json({ error: 'Internal Server Error' });
+        });
 });
 
 // app.get('/register', function (req, res) {
@@ -95,7 +105,7 @@ app.post('/authenticate', async function (req, res) {
         req.session.uid = uId;
         req.session.loggedIn = true;
         console.log(req.session.id);
-        res.redirect('/');
+        res.redirect('/admin_dashboard');
     } catch (err) {
         console.error(`Error while authenticating user:`, err.message);
         res.status(500).send('Internal Server Error');
