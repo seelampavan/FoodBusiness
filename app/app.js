@@ -2,6 +2,8 @@
 const express = require("express");
 const { User } = require("./models/user");
 const { Menu } = require("./models/menu");
+const multer = require('multer');
+const path = require('path');
 // Create express app
 var app = express();
 
@@ -65,6 +67,9 @@ app.get('/admin_login', function (req, res) {
     res.render('admin-login');
 });
 
+app.get('/create', function (req, res) {
+    res.render('create-item');
+});
 
 
 app.get("/admin_dashboard", function (req, res) {
@@ -160,6 +165,44 @@ app.get("/admin", function (req, res) {
         res.status(500).send('Internal Server Error');
     }
 });
+
+// Set storage engine for multer
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, 'uploads/');
+    },
+    filename: function (req, file, cb) {
+      cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+    }
+  });
+  
+  // Initialize multer upload
+  const upload = multer({
+    storage: storage
+  });
+
+ 
+  
+
+app.post('/create_item', upload.single('item_img'), async (req, res) => {
+    try {
+      const { name, category, veg, ingredients, benefits, calories, description } = req.body;
+      const item_img = req.file ? req.file.path : '';
+  
+      // Insert the menu item into the database
+      let sql = "INSERT INTO menu_item (name, category, veg, ingredients, benefits, calories, description, item_img) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+      await db.query(sql, [name, category, veg, ingredients, benefits, calories, description, item_img]);
+  
+      // Send a success response
+      res.status(201).json({ message: 'Menu item created successfully' });
+    } catch (error) {
+      // If an error occurs, send an error response
+      console.error('Error creating menu item:', error);
+      res.status(500).json({ error: 'An error occurred while creating the menu item' });
+    }
+  });
+  
+
 
 app.get('/logout', function (req, res) {
     try {
