@@ -169,7 +169,7 @@ app.get("/admin", function (req, res) {
 // Set storage engine for multer
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-      cb(null, 'uploads/');
+      cb(null, 'static/css/uploads/');
     },
     filename: function (req, file, cb) {
       cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));

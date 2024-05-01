@@ -34,7 +34,7 @@ html(lang='en')
     .menu-container
       each item in items
         .menu-item(id=`${item.name.toLowerCase().replace(/\s+/g, '-')}`)
-          img(src=`css/${item.item_img}`, alt=item.name)
+          img(src=`css/${item.item_img.replace('static/css/', '')}`, alt=item.name)
           h2= item.name
           p Veg: #{item.veg}
           a(href='#') View Details

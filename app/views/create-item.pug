@@ -7,7 +7,6 @@ html
     link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Lato&display=swap')
     link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css')
     link(rel='stylesheet', href='../css/style.css')
-
   body
     nav
       div.logo
@@ -19,35 +18,37 @@ html
         li
           a(href='/admin_dashboard') HOME
         li
-          a(href='/aboutus') Create Menu
-
-    block content
-      .card-container
-        .card
-          h1 Create Item
-          form(action='/create_item', method='POST', enctype='multipart/form-data')
-            div.form-group
-              label(for='name') Name:
-              input(type='text', id='name', name='name', required)
-            div.form-group
-              label(for='category') Category:
-              input(type='text', id='category', name='category')
-            div.form-group
-              label(for='veg') Veg:
-              input(type='text', id='veg', name='veg')
-            div.form-group
-              label(for='ingredients') Ingredients:
-              textarea(id='ingredients', name='ingredients', rows='5')
-            div.form-group
-              label(for='benefits') Benefits:
-              textarea(id='benefits', name='benefits', rows='5')
-            div.form-group
-              label(for='calories') Calories:
-              input(type='number', id='calories', name='calories')
-            div.form-group
-              label(for='description') Description:
-              textarea(id='description', name='description', rows='5')
-            div.form-group
-              label(for='item_img') Item Image:
-              input(type='file', id='item_img', name='item_img')
-            button(type='submit') Submit
+          a(href='/create') Create Menu
+    .card-container
+      .card
+        h1 Create Item
+        form(action='/create_item', method='POST', enctype='multipart/form-data')
+          .form-group
+            label(for='name') Name:
+            input(type='text', id='name', name='name', required)
+          .form-group
+            label(for='category') Category:
+            select(id='category', name='category')
+              option(value='Main Course') Main Course
+              option(value='today_special') Today Special
+          .form-group
+            label(for='veg') Veg:
+            select(id='veg', name='veg')
+              option(value='Yes') Yes
+              option(value='No') No
+          .form-group
+            label(for='ingredients') Ingredients:
+            textarea(id='ingredients', name='ingredients', rows='5')
+          .form-group
+            label(for='benefits') Benefits:
+            textarea(id='benefits', name='benefits', rows='5')
+          .form-group
+            label(for='calories') Calories:
+            input(type='number', id='calories', name='calories')
+          .form-group
+            label(for='description') Description:
+            textarea(id='description', name='description', rows='5')
+          .form-group
+            label(for='item_img') Item Image:
+            input(type='file', id='item_img', name='item_img')
+          button(type='submit') Submit
