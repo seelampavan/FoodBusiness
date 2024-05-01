@@ -47,9 +47,9 @@ const sessionMiddleware = session({
 app.use(sessionMiddleware);
 
 app.get("/", function (req, res) {
-    const sql = 'SELECT * FROM menu_item where category = "today_special" LIMIT 5';
-    const sql1 = 'SELECT * FROM menu_item WHERE veg = "Yes" LIMIT 5';
-    const sql2 = 'SELECT * FROM menu_item WHERE veg = "No" LIMIT 5';
+    const sql = 'SELECT * FROM menu_item where category = "today_special"';
+    const sql1 = 'SELECT * FROM menu_item WHERE veg = "Yes"';
+    const sql2 = 'SELECT * FROM menu_item WHERE veg = "No"';
 
     Promise.all([db.query(sql), db.query(sql1), db.query(sql2)])
         .then(([result, result1, result2]) => {
@@ -90,6 +90,17 @@ app.get("/item_details/:itemId", async function (req, res) {
     try {
         const menu = await Menu.getMenuItemById(itemId);
         res.render('admin-item-details', { data: menu });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Internal Server Error', currentPage: 'home' });
+    }
+});
+
+app.get("/details/:itemId", async function (req, res) {
+    const itemId = req.params.itemId;
+    try {
+        const menu = await Menu.getMenuItemById(itemId);
+        res.render('details', { data: menu });
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Internal Server Error', currentPage: 'home' });

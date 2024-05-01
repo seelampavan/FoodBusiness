@@ -37,20 +37,20 @@ html(lang='en')
           img(src=`css/${item.item_img.replace('static/css/', '')}`, alt=item.name)
           h2= item.name
           p Veg: #{item.veg}
-          a(href='#') View Details
+          a(href=`details/${item.id}`) View Details
           
     h1.title Veg Items
     .menu-container
       each item in items1
         .menu-item(id=`${item.name.toLowerCase().replace(/\s+/g, '-')}`)
-          img(src=`css/${item.item_img}`, alt=item.name)
+          img(src=`css/${item.item_img.replace('static/css/', '')}`, alt=item.name)
           h2= item.name
-          a(href='#') View Details
+          a(href=`details/${item.id}`) View Details
 
     h1.title Non-Veg Items
     .menu-container
       each item in items2
         .menu-item(id=`${item.name.toLowerCase().replace(/\s+/g, '-')}`)
-          img(src=`css/${item.item_img}`, alt=item.name)
+          img(src=`css/${item.item_img.replace('static/css/', '')}`, alt=item.name)
           h2= item.name
-          a(href='#') View Details
+          a(href=`details/${item.id}`) View Details
