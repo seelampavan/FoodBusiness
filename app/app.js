@@ -71,6 +71,9 @@ app.get('/create', function (req, res) {
     res.render('create-item');
 });
 
+app.get('/aboutus', function (req, res) {
+    res.render('aboutus');
+});
 
 app.get("/admin_dashboard", function (req, res) {
     const sql = 'SELECT * FROM menu_item';
@@ -197,12 +200,12 @@ const storage = multer.diskStorage({
 
 app.post('/create_item', upload.single('item_img'), async (req, res) => {
     try {
-      const { name, category, veg, ingredients, benefits, calories, description } = req.body;
+      const { name, category, veg, ingredients, benefits, calories, description, price } = req.body;
       const item_img = req.file ? req.file.path : '';
   
       // Insert the menu item into the database
-      let sql = "INSERT INTO menu_item (name, category, veg, ingredients, benefits, calories, description, item_img) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-      await db.query(sql, [name, category, veg, ingredients, benefits, calories, description, item_img]);
+      let sql = "INSERT INTO menu_item (name, category, veg, ingredients, benefits, calories, description, item_img, price) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+      await db.query(sql, [name, category, veg, ingredients, benefits, calories, description, item_img, price]);
   
       // Send a success response
       res.status(201).json({ message: 'Menu item created successfully' });
@@ -212,6 +215,8 @@ app.post('/create_item', upload.single('item_img'), async (req, res) => {
       res.status(500).json({ error: 'An error occurred while creating the menu item' });
     }
   });
+
+
   
 
 

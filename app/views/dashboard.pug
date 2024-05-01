@@ -1,3 +1,4 @@
+include index
 doctype html
 html(lang='en')
   head
@@ -37,6 +38,7 @@ html(lang='en')
           img(src=`css/${item.item_img.replace('static/css/', '')}`, alt=item.name)
           h2= item.name
           p Veg: #{item.veg}
+          p Price: #{item.price} £
           a(href=`details/${item.id}`) View Details
           
     h1.title Veg Items
@@ -45,6 +47,7 @@ html(lang='en')
         .menu-item(id=`${item.name.toLowerCase().replace(/\s+/g, '-')}`)
           img(src=`css/${item.item_img.replace('static/css/', '')}`, alt=item.name)
           h2= item.name
+          p Price: #{item.price} £
           a(href=`details/${item.id}`) View Details
 
     h1.title Non-Veg Items
@@ -53,4 +56,5 @@ html(lang='en')
         .menu-item(id=`${item.name.toLowerCase().replace(/\s+/g, '-')}`)
           img(src=`css/${item.item_img.replace('static/css/', '')}`, alt=item.name)
           h2= item.name
+          p Price: #{item.price} £
           a(href=`details/${item.id}`) View Details
